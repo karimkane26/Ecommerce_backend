@@ -131,19 +131,19 @@ app.get('/api/config/paypal', (req, res) =>
   res.send({ clientId: process.env.PAYPAL_CLIENT_ID })
 );
 
-// Servir les fichiers statiques en production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../frontend/build')));
+// // Servir les fichiers statiques en production
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join(__dirname, '../frontend/build')));
 
-  // Toutes les autres requêtes renvoient index.html
-  app.get('*', (req, res) =>
-    res.sendFile(path.join(__dirname, '../frontend/build/index.html'))
-  );
-} else {
+//   // Toutes les autres requêtes renvoient index.html
+//   app.get('*', (req, res) =>
+//     res.sendFile(path.join(__dirname, '../frontend/build/index.html'))
+//   );
+// } else 
   app.get('/', (req, res) => {
     res.send('API is running ...');
   });
-}
+
 
 // Middleware de gestion des erreurs
 app.use(notFound);

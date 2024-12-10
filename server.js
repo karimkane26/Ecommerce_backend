@@ -115,7 +115,7 @@ app.use(
 // Configuration de CORS
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:3000', // Utilisez une variable d'environnement
+    origin: process.env.CLIENT_URL || 'http://localhost:5000', // Utilisez une variable d'environnement
     credentials: true, // Autoriser l'envoi de cookies
     allowedHeaders: ['Authorization', 'Content-Type'],
   })

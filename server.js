@@ -113,26 +113,24 @@ app.use(
 );
 
 
+import cors from 'cors';
+
 app.use(
   cors({
-    origin: (origin, callback) => {
-      const allowedOrigins = [
-        'http://localhost:3000', // Localhost pour le développement
-        'https://ecommerce-frontend-71b7hni1b-karimkane26s-projects.vercel.app', // URL de votre frontend sur Vercel
-        process.env.CLIENT_URL, // URL de votre frontend en production, définie dans votre fichier .env
-      ];
-
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true); // Autoriser la requête
-      } else {
-        callback(new Error('Not allowed by CORS')); // Rejeter la requête si l'origine n'est pas autorisée
-      }
-    },
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Autoriser les méthodes HTTP nécessaires
-    credentials: true, // Permet l'envoi de cookies dans les requêtes cross-origin
-    allowedHeaders: ['Authorization', 'Content-Type'], // Autoriser les en-têtes nécessaires
+    origin: [
+      'http://localhost:3000', // Développement local
+      'https://ecommerce-frontend-71b7hni1b-karimkane26s-projects.vercel.app', // URL précédente
+      'https://ecommerce-frontend-git-main-karimkane26s-projects.vercel.app', // Nouvelle URL
+    ],
+    credentials: true, // Permettre les cookies dans les requêtes cross-origin
+    allowedHeaders: ['Authorization', 'Content-Type'], // En-têtes autorisés
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Méthodes autorisées
   })
 );
+
+// Ajouter une réponse explicite aux requêtes OPTIONS
+// app.options('*', cors());
+
 
 // Permet de répondre aux requêtes OPTIONS avant d'autres méthodes
 app.options('*', cors());

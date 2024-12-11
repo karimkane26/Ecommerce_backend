@@ -151,12 +151,15 @@ app.use(
 //     allowedHeaders: ['Authorization', 'Content-Type'],
 //   })
 // );
+import cors from 'cors';
+
 app.use(
   cors({
     origin: (origin, callback) => {
       const allowedOrigins = [
-        'http://localhost:3000', // Localhost pour le développement
-        'https://ecommerce-frontend-71b7hni1b-karimkane26s-projects.vercel.app/', // URL de votre frontend sur Vercel
+        // 'http://localhost:3000', // Localhost pour le développement
+        'https://ecommerce-frontend-71b7hni1b-karimkane26s-projects.vercel.app', // URL de votre frontend sur Vercel
+        process.env.CLIENT_URL, // URL de votre frontend en production, défini dans votre fichier .env
       ];
 
       if (!origin || allowedOrigins.includes(origin)) {
@@ -165,10 +168,11 @@ app.use(
         callback(new Error('Not allowed by CORS'));
       }
     },
-    credentials: true, // Autorise les cookies dans les requêtes entre origines
+    credentials: true, // Permet d'envoyer des cookies avec les requêtes
     allowedHeaders: ['Authorization', 'Content-Type'],
   })
 );
+
 
 
 // Définir les routes API

@@ -113,7 +113,7 @@ app.use(
 );
 
 
-import cors from 'cors';
+// import cors from 'cors';
 
 app.use(
   cors({

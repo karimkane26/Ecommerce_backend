@@ -151,7 +151,6 @@ app.use(
 //     allowedHeaders: ['Authorization', 'Content-Type'],
 //   })
 // );
-import cors from 'cors';
 
 app.use(
   cors({

@@ -113,13 +113,63 @@ app.use(
 );
 
 // Configuration de CORS
+// app.use(
+//   cors({
+//     origin: (origin, callback) => {
+//       const allowedOrigins = [
+//         'http://localhost:3000',
+//         'http://localhost:5000',
+//         process.env.CLIENT_URL, // URL du client en production
+//       ];
+
+//       // Vérifie si l'origine est autorisée
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error('Not allowed by CORS'));
+//       }
+//     },
+//     credentials: true, // Autorise les cookies
+//     allowedHeaders: ['Authorization', 'Content-Type'],
+//   })
+// );
+// app.use(
+//   cors({
+//     origin: (origin, callback) => {
+//       const allowedOrigins = [
+//         'http://localhost:3000',
+//         process.env.CLIENT_URL, // Utilise CLIENT_URL pour la production
+//       ];
+
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error('Not allowed by CORS'));
+//       }
+//     },
+//     credentials: true,
+//     allowedHeaders: ['Authorization', 'Content-Type'],
+//   })
+// );
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:5000', // Utilisez une variable d'environnement
-    credentials: true, // Autoriser l'envoi de cookies
+    origin: (origin, callback) => {
+      const allowedOrigins = [
+        'http://localhost:3000', // Localhost pour le développement
+        'https://ecommerce-frontend-71b7hni1b-karimkane26s-projects.vercel.app/', // URL de votre frontend sur Vercel
+      ];
+
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true, // Autorise les cookies dans les requêtes entre origines
     allowedHeaders: ['Authorization', 'Content-Type'],
   })
 );
+
 
 // Définir les routes API
 app.use('/api/products', productRoutes);

@@ -112,65 +112,52 @@ app.use(
   })
 );
 
-// Configuration de CORS
-// app.use(
-//   cors({
-//     origin: (origin, callback) => {
-//       const allowedOrigins = [
-//         'http://localhost:3000',
-//         'http://localhost:5000',
-//         process.env.CLIENT_URL, // URL du client en production
-//       ];
-
-//       // Vérifie si l'origine est autorisée
-//       if (!origin || allowedOrigins.includes(origin)) {
-//         callback(null, true);
-//       } else {
-//         callback(new Error('Not allowed by CORS'));
-//       }
-//     },
-//     credentials: true, // Autorise les cookies
-//     allowedHeaders: ['Authorization', 'Content-Type'],
-//   })
-// );
-// app.use(
-//   cors({
-//     origin: (origin, callback) => {
-//       const allowedOrigins = [
-//         'http://localhost:3000',
-//         process.env.CLIENT_URL, // Utilise CLIENT_URL pour la production
-//       ];
-
-//       if (!origin || allowedOrigins.includes(origin)) {
-//         callback(null, true);
-//       } else {
-//         callback(new Error('Not allowed by CORS'));
-//       }
-//     },
-//     credentials: true,
-//     allowedHeaders: ['Authorization', 'Content-Type'],
-//   })
-// );
+import cors from 'cors';
 
 app.use(
   cors({
     origin: (origin, callback) => {
       const allowedOrigins = [
-        // 'http://localhost:3000', // Localhost pour le développement
+        'http://localhost:3000', // Localhost pour le développement
         'https://ecommerce-frontend-71b7hni1b-karimkane26s-projects.vercel.app', // URL de votre frontend sur Vercel
-        process.env.CLIENT_URL, // URL de votre frontend en production, défini dans votre fichier .env
+        process.env.CLIENT_URL, // URL de votre frontend en production, définie dans votre fichier .env
       ];
 
       if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
+        callback(null, true); // Autoriser la requête
       } else {
-        callback(new Error('Not allowed by CORS'));
+        callback(new Error('Not allowed by CORS')); // Rejeter la requête si l'origine n'est pas autorisée
       }
     },
-    credentials: true, // Permet d'envoyer des cookies avec les requêtes
-    allowedHeaders: ['Authorization', 'Content-Type'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Autoriser les méthodes HTTP nécessaires
+    credentials: true, // Permet l'envoi de cookies dans les requêtes cross-origin
+    allowedHeaders: ['Authorization', 'Content-Type'], // Autoriser les en-têtes nécessaires
   })
 );
+
+// Permet de répondre aux requêtes OPTIONS avant d'autres méthodes
+app.options('*', cors());
+
+
+// app.use(
+//   cors({
+//     origin: (origin, callback) => {
+//       const allowedOrigins = [
+//         // 'http://localhost:3000', // Localhost pour le développement
+//         'https://ecommerce-frontend-71b7hni1b-karimkane26s-projects.vercel.app', // URL de votre frontend sur Vercel
+//         process.env.CLIENT_URL, // URL de votre frontend en production, défini dans votre fichier .env
+//       ];
+
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error('Not allowed by CORS'));
+//       }
+//     },
+//     credentials: true, // Permet d'envoyer des cookies avec les requêtes
+//     allowedHeaders: ['Authorization', 'Content-Type'],
+//   })
+// );
 
 
 
